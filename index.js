@@ -5,6 +5,7 @@ const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
 const twoFactor = require("./routes/two-factor");
 const cors = require("cors");
+const session = require("express-session");
 
 const app = express();
 dotenv.config();
@@ -14,6 +15,7 @@ mongoose.connect(process.env.DB_CONNECT, () => console.log("Connected to DB"));
 //Middleware
 //app.use(cors());
 app.use(express.json());
+app.use(session({ secret: "somesecret" }));
 
 app.set("view engine", "ejs");
 app.get("/app", (req, res) => {
